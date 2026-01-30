@@ -12,7 +12,7 @@ class AuthController extends Controller
         //validate input
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
         ]);
 
@@ -20,7 +20,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->passsword,
+            'password' => $request->password,
         ]);
 
         //create sanctum token

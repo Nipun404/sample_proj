@@ -29,6 +29,22 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 
-    // AI endpoint
+    // resume endpoint
+    Route::post('/resume',function () {
+        request()->validate([
+            'content' => 'required|string'
+        ]);
+        $user = request()->user();
+        $resume = $user->resume()->updateOrCreate(
+            [],
+            ['content' => request()->content]
+        );
+
+        return response()->json([
+            'message' => 'resume saved',
+            'resume' => $resume
+        ]);
+
+    });
     
 });
